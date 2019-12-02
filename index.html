@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>RTL convert range</title>
+</head>
+<body>
+    <form id="form">
+        <textarea id="input" cols="80" rows="50"></textarea>
+        <input type="submit" value="Convert">
+    </form>
+    <p id="output"></p>
+    <p id="emoji"></p>
+    <script>
+        const input = document.getElementById('input');
+        const form = document.getElementById('form');
+        const output = document.getElementById('output');
+        const emoji = document.getElementById('emoji');
+
+        let result = '';
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const text = input.value || '';
+            let ranges = text.split('\n');
+            ranges = ranges.map(line => line.trim());
+            ranges = ranges.filter(text => text);
+
+            ranges.forEach(range => {
+                let numbers = range.split('-');
+                if (!numbers || numbers.length < 2) return;
+
+                result += `${numbers[1]}-${numbers[0]}<br>`;
+            });
+            output.innerHTML = result;
+            emoji.innerHTML = '😁';
+        });
+    </script>
+</body>
+</html>
